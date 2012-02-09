@@ -1,8 +1,8 @@
 #!/bin/bash
-NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-r21
-WEEKLY_QT5_HASH="a065c70489e96aa254089a666c0a6fcc89c50825"
+NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-r22
+WEEKLY_QT5_HASH="63d681ee575c28c972f709af4a1c2b35e03064d8"
 THREADS=-j30
-QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtdeclarative qt3d qtsensors qtlocation"
+QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtdeclarative qtquick1 qt3d qtsensors qtlocation"
 
 rm -rf $NEW_QTDIR
 cd qt5
