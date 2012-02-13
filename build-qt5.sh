@@ -1,6 +1,5 @@
 #!/bin/bash
-NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-r22
-WEEKLY_QT5_HASH="63d681ee575c28c972f709af4a1c2b35e03064d8"
+. ./build-qt5-env
 THREADS=-j30
 QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtdeclarative qtquick1 qt3d qtsensors qtlocation"
 
