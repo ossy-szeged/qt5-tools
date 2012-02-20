@@ -63,6 +63,7 @@ done
 
 
 cp ../qt5-tools/build-qt5-env $QTDIR_PATH/newest_version
+unlink $QTDIR_PATH/Qt-5.0.0-ARM
 ln -sf $NEW_QTDIR $QTDIR_PATH/Qt-5.0.0-ARM
 
 echo
