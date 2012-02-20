@@ -2,7 +2,7 @@
 
 QTDIR_PATH="/mnt/store/ARM/Qt5"
 
-d=`diff build-qt5-env $QTDIR_PATH/newest_version 2>&1 | wc -l`
+d=`diff qt5-tools/build-qt5-env $QTDIR_PATH/newest_version 2>&1 | wc -l`
 if [ "$d" = "0" ]
 then
   echo "The newest working version is already installed."
@@ -10,7 +10,7 @@ then
 fi
 
 
-. ../build-qt5-env
+. qt5-tools/build-qt5-env
 NEW_QTDIR="$QTDIR_PATH/Qt-5.0.0-$QT_WEEKLY_REV"
 QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtdeclarative qtquick1 qt3d qtsensors qtlocation"
 
@@ -20,15 +20,10 @@ export PATH=/mnt/store/ARM/toolchain/softfp/arm-none-linux-gnueabi-4.4.6/bin:$PA
 
 
 rm -rf qt5
-
 git clone https://git.gitorious.org/qt/qt5.git || exit 1
 
 
 cd qt5
-
-git checkout master
-git clean -dxf
-git reset --hard head
 
 git submodule foreach "git clean -dxf" || exit 1
 
@@ -44,8 +39,8 @@ git submodule status
 echo ==========================================================
 
 
-cp ../qmake.conf qtbase/mkspecs/linux-arm-gnueabi-g++/
-git apply ../qtjsbackend.patch --directory=qtjsbackend
+cp ../qt5-tools/cross-tools/qmake.conf qtbase/mkspecs/linux-arm-gnueabi-g++/
+git apply ../qt5-tools/cross-tools/qtjsbackend.patch --directory=qtjsbackend
 
 
 ./configure -arch arm -xplatform linux-arm-gnueabi-g++ -opensource -confirm-license -no-pch -nomake examples -nomake demos -nomake tests -no-gtkstyle -nomake translations -qt-zlib -qt-libpng -qt-libjpeg -qt-sql-sqlite -release -prefix $QTDIR -v
@@ -67,7 +62,7 @@ do
 done
 
 
-cp ../build-qt5-env $QTDIR_PATH/newest_version
+cp ../qt5-tools/build-qt5-env $QTDIR_PATH/newest_version
 ln -sf $NEW_QTDIR $QTDIR_PATH/Qt-5.0.0-ARM
 
 echo
