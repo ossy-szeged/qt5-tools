@@ -6,6 +6,7 @@ d=`diff qt5-tools/build-qt5-env $QTDIR_PATH/newest_version 2>&1 | wc -l`
 if [ "$d" = "0" ]
 then
   echo "The newest working version is already installed."
+  echo "Hash: $WEEKLY_QT5_HASH"
   exit 0
 fi
 
@@ -26,7 +27,6 @@ git clone https://git.gitorious.org/qt/qt5.git || exit 1
 cd qt5
 
 git submodule foreach "git clean -dxf" || exit 1
-
 git submodule foreach "git checkout master" || exit 1
 git submodule foreach "git reset --hard head" || exit 1
 git fetch || exit 1
@@ -65,6 +65,8 @@ done
 cp ../qt5-tools/build-qt5-env $QTDIR_PATH/newest_version
 unlink $QTDIR_PATH/Qt-5.0.0-ARM
 ln -sf $NEW_QTDIR $QTDIR_PATH/Qt-5.0.0-ARM
+
+rm -rf ../WebKitBuild
 
 echo
 echo Build Completed.

@@ -18,4 +18,4 @@ REV=`svn info |grep Revision: |cut -c11-`
 
 
 cd $WEBKIT_BUILD_DIR/thin
-zip -y -r ../../../${REV}.zip .
+zip -y -r ../../release.zip .
