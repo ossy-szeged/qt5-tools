@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. qt5-tools/build-qt5-env
+
 QTDIR_PATH="/mnt/store/ARM/Qt5"
 
 d=`diff qt5-tools/build-qt5-env $QTDIR_PATH/newest_version 2>&1 | wc -l`
@@ -10,8 +12,6 @@ then
   exit 0
 fi
 
-
-. qt5-tools/build-qt5-env
 NEW_QTDIR="$QTDIR_PATH/Qt-5.0.0-$QT_WEEKLY_REV"
 QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtdeclarative qtquick1 qt3d qtsensors qtlocation"
 
@@ -21,7 +21,7 @@ export PATH=/mnt/store/ARM/toolchain/softfp/arm-none-linux-gnueabi-4.4.6/bin:$PA
 
 
 rm -rf qt5
-git clone https://git.gitorious.org/qt/qt5.git || exit 1
+git clone git@gitorious.org:+qt-developers/qt/qt5.git || exit 1
 
 
 cd qt5
@@ -31,7 +31,7 @@ git submodule foreach "git checkout master" || exit 1
 git submodule foreach "git reset --hard head" || exit 1
 git fetch || exit 1
 git reset --hard $WEEKLY_QT5_HASH || exit 1
-./init-repository --module-subset=qtbase,`echo $QT5_MODULES | tr " " ","` -f || exit 1
+./init-repository --mirror=git@gitorious.org:+qt-developers/ --module-subset=qtbase,`echo $QT5_MODULES | tr " " ","` -f || exit 1
 git submodule foreach "git fetch" || exit 1
 git submodule update --recursive || exit 1
 echo ==========================================================
