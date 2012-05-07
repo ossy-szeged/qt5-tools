@@ -2,7 +2,7 @@
 . ./build-qt5-env
 THREADS=-j30
 NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-$QT_WEEKLY_REV
-QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtdeclarative qtquick1 qt3d qtsensors qtlocation"
+QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtquick1 qtdeclarative qt3d qtsensors qtlocation"
 
 rm -rf $NEW_QTDIR
 cd qt5
