@@ -13,7 +13,6 @@ then
 fi
 
 NEW_QTDIR="$QTDIR_PATH/Qt-5.0.0-$QT_WEEKLY_REV"
-QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtdeclarative qtquick1 qt3d qtsensors qtlocation"
 
 export QTDIR=$NEW_QTDIR
 export PATH=$QTDIR/bin:$PATH
