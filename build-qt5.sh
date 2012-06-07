@@ -1,9 +1,19 @@
 #!/bin/bash
-. ./build-qt5-env
+
+RELDIR=`dirname $0`
+ABSDIR=`cd $RELDIR;pwd`
+
+. $ABSDIR/build-qt5-env
 THREADS=-j30
 NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-$QT_WEEKLY_REV
 
 rm -rf $NEW_QTDIR
+
+if [ ! -d qt5 ]
+then
+    git clone git://gitorious.org/qt/qt5.git qt5
+fi
+
 cd qt5
 git checkout master
 git clean -dxf
