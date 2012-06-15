@@ -3,15 +3,17 @@
 N_THREADS=30
 BUILD_TYPE="-release"
 DEVELOPER_BUILD=
+MIRROR_URL=
 
 function usage() {
-    echo "Usage: $0 [-d] [-D] [-j #NUMBER]"
-    echo "       -d  : builds with debug symbols."
-    echo "       -D  : builds in developer mode (do not install anything)."
-    echo "       -j #: builds with # threads (default is $N_THREADS)."
+    echo "Usage: $0 [-d] [-D] [-j #NUMBER] [-m URL]"
+    echo "       -d     : builds with debug symbols."
+    echo "       -D     : builds in developer mode (do not install anything)."
+    echo "       -j #   : builds with # threads (default is $N_THREADS)."
+    echo "       -m URL : uses URL as mirror to the git related tasks."
 }
 
-while getopts "h?dDj:" opt; do
+while getopts "h?dDj:m:" opt; do
     case $opt in
         h|\?)
             usage
@@ -29,6 +31,10 @@ while getopts "h?dDj:" opt; do
             echo "[$0] Building with $OPTARG threads."
             N_THREADS=$OPTARG
             ;;
+        m)
+            echo "[$0] Using mirror $OPTARG to clone Qt5."
+            MIRROR_URL=$OPTARG
+            ;;
     esac
 done
 
@@ -42,6 +48,13 @@ if [ $N_THREADS -gt 1 ]; then
     THREADS=-j$N_THREADS
 fi
 
+MIRROR=
+if [ $MIRROR_URL ]; then
+    MIRROR="--mirror $MIRROR_URL"
+else
+    $MIRROR_URL="git://gitorious.org"
+fi
+
 NEW_QTDIR=
 INSTALL_TYPE=
 if [ $DEVELOPER_BUILD ]; then
@@ -53,9 +66,8 @@ else
     rm -rf $NEW_QTDIR
 fi
 
-if [ ! -d qt5 ]
-then
-    git clone git://gitorious.org/qt/qt5.git qt5
+if [ ! -d qt5 ]; then
+    git clone $MIRROR_URL"/qt/qt5.git" qt5
 fi
 
 cd qt5
@@ -67,7 +79,7 @@ git submodule foreach "git clean -dxf"
 git submodule foreach "git reset --hard HEAD"
 git fetch || exit 1
 git reset --hard $WEEKLY_QT5_HASH || exit 1
-./init-repository --module-subset=qtbase,`echo $QT5_MODULES | tr " " ","` -f || exit 1
+./init-repository $MIRROR --module-subset=qtbase,`echo $QT5_MODULES | tr " " ","` -f || exit 1
 git submodule foreach "git fetch" || exit 1
 git submodule update --recursive || exit 1
 echo ==========================================================
