@@ -1,4 +1,4 @@
-QT_WEEKLY_REV=r33
-WEEKLY_QT5_HASH="fd18c7da239856b6e8203b738f751b023fa2324e"
+QT_WEEKLY_REV=r34
+WEEKLY_QT5_HASH="78b8403e415e7e8d9405daebc9619c4a7cb85910"
 QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtquick1 qtdeclarative qt3d qtsensors qtlocation"
 
