@@ -10,7 +10,7 @@ function usage() {
     echo "       -d     : builds with debug symbols."
     echo "       -D     : builds in developer mode (do not install anything)."
     echo "       -j #   : builds with # threads (default is $N_THREADS)."
-    echo "       -m URL : uses URL as mirror to the git related tasks."
+    echo "       -m URL : uses URL (without trailing slash!) as mirror to the git related tasks. (default is git://gitorious.org)"
 }
 
 while getopts "h?dDj:m:" opt; do
@@ -79,7 +79,7 @@ git submodule foreach "git clean -dxf"
 git submodule foreach "git reset --hard HEAD"
 git fetch || exit 1
 git reset --hard $WEEKLY_QT5_HASH || exit 1
-./init-repository $MIRROR --module-subset=qtbase,`echo $QT5_MODULES | tr " " ","` -f || exit 1
+./init-repository $MIRROR/ --module-subset=qtbase,`echo $QT5_MODULES | tr " " ","` -f || exit 1
 git submodule foreach "git fetch" || exit 1
 git submodule update --recursive || exit 1
 echo ==========================================================
