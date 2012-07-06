@@ -52,7 +52,7 @@ MIRROR=
 if [ $MIRROR_URL ]; then
     MIRROR="--mirror $MIRROR_URL"
 else
-    $MIRROR_URL="git://gitorious.org"
+    MIRROR_URL="git://gitorious.org"
 fi
 
 NEW_QTDIR=
