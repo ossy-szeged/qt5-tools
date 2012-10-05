@@ -1,3 +1,3 @@
-QT_WEEKLY_REV=beta1
-WEEKLY_QT5_HASH="v5.0.0-beta1"
+QT_WEEKLY_REV=r37
+WEEKLY_QT5_HASH="749b83f337ec82eff305ed8ac85473ad984c84fa"
 QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtquick1 qtdeclarative qt3d qtsensors qtlocation"
