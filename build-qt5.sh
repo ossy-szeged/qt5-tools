@@ -86,8 +86,7 @@ echo ==========================================================
 git submodule status
 echo ==========================================================
 
-export QTDIR=$NEW_QTDIR
-export PATH=$QTDIR/bin:$PATH
+export PATH=$NEW_QTDIR/bin:$PATH
 
 ./configure -opensource -confirm-license -no-pch -nomake examples -nomake demos -nomake tests -no-gtkstyle -nomake translations -qt-zlib -qt-libpng -qt-libjpeg -qt-sql-sqlite $BUILD_TYPE $INSTALL_TYPE
 
