@@ -58,7 +58,7 @@ fi
 NEW_QTDIR=
 INSTALL_TYPE=
 if [ $DEVELOPER_BUILD ]; then
-    NEW_QTDIR=$ABSDIR/qt5/qtbase
+    NEW_QTDIR=$PWD/qt5/qtbase
     INSTALL_TYPE=-developer-build
 else
     NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-$QT_WEEKLY_REV
