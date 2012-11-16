@@ -58,7 +58,7 @@ fi
 NEW_QTDIR=
 INSTALL_TYPE=
 if [ $DEVELOPER_BUILD ]; then
-    NEW_QTDIR=$ABSDIR/qt5/qtbase
+    NEW_QTDIR=$PWD/qt5/qtbase
     INSTALL_TYPE=-developer-build
 else
     NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-$QT_WEEKLY_REV
@@ -86,8 +86,7 @@ echo ==========================================================
 git submodule status
 echo ==========================================================
 
-export QTDIR=$NEW_QTDIR
-export PATH=$QTDIR/bin:$PATH
+export PATH=$NEW_QTDIR/bin:$PATH
 
 ./configure -opensource -confirm-license -no-pch -nomake examples -nomake demos -nomake tests -no-gtkstyle -nomake translations -qt-zlib -qt-libpng -qt-libjpeg -qt-sql-sqlite $BUILD_TYPE $INSTALL_TYPE
 
