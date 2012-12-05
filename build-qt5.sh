@@ -97,7 +97,7 @@ echo ==========================================================
 for module in $NON_QT5_MODULES
 do
   module_hash="${module}_HASH"
-  cd $module && git checkout master && git clean -dxf && git reset --hard HEAD && git checkout ${!module_hash} && cd ..
+  cd $module && git checkout master && git clean -dxf && git reset --hard HEAD && git fetch && git checkout ${!module_hash} && cd ..
   if [ $? -ne 0 ] ; then
     echo FAIL: updating $module
     exit 1
