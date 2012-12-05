@@ -1,3 +1,7 @@
-QT_WEEKLY_REV=r39
-WEEKLY_QT5_HASH="71c071399ad74325e2997980f6416a962b92e932"
-QT5_MODULES="qtjsbackend qtxmlpatterns qtscript qtquick1 qtdeclarative qt3d qtsensors qtlocation"
+QT_WEEKLY_REV=r40
+WEEKLY_QT5_HASH="8d77ff1ef2422259dd6baed5cae9815260e5bee2"
+QT5_MODULES="qtjsbackend qtdeclarative"
+NON_QT5_MODULES="qt3d qtlocation qtsensors"
+qt3d_HASH="1ce13f86c7066721ce80258d6a89baccc4030066"
+qtlocation_HASH="1e8989fcb10f04daf5ec1c21d36e829dfbde62ec"
+qtsensors_HASH="a199068d2aecd8a7faaed3e098253b6e6c542e59"

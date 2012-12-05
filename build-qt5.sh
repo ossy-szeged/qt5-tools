@@ -67,14 +67,22 @@ else
 fi
 
 if [ ! -d qt5 ]; then
-    git clone $MIRROR_URL"/qt/qt5.git" qt5
+    git clone -b stable $MIRROR_URL"/qt/qt5.git" qt5
 fi
 
+for module in $NON_QT5_MODULES
+do
+  if [ ! -d qt5/$module ]; then
+    git clone -b master $MIRROR_URL"/qt/"$module".git" qt5/$module
+  fi
+done
+
+
 cd qt5
-git checkout master
+git checkout stable
 git clean -dxf
 git reset --hard HEAD
-git submodule foreach "git checkout master"
+git submodule foreach "git checkout stable"
 git submodule foreach "git clean -dxf"
 git submodule foreach "git reset --hard HEAD"
 git fetch || exit 1
@@ -85,6 +93,16 @@ git submodule update --recursive || exit 1
 echo ==========================================================
 git submodule status
 echo ==========================================================
+
+for module in $NON_QT5_MODULES
+do
+  module_hash="${module}_HASH"
+  cd $module && git checkout master && git clean -dxf && git reset --hard HEAD && git checkout ${!module_hash} && cd ..
+  if [ $? -ne 0 ] ; then
+    echo FAIL: updating $module
+    exit 1
+  fi
+done
 
 export QTDIR=$NEW_QTDIR
 export PATH=$QTDIR/bin:$PATH
@@ -97,7 +115,7 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
-for module in $QT5_MODULES
+for module in $QT5_MODULES $NON_QT5_MODULES
 do
   cd $module && qmake && make $THREADS && if [ ! $DEVELOPER_BUILD ]; then make install; fi && cd ..
   if [ $? -ne 0 ] ; then
