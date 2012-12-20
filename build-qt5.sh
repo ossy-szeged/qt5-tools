@@ -73,7 +73,8 @@ fi
 for module in $NON_QT5_MODULES
 do
   if [ ! -d qt5/$module ]; then
-    git clone -b master $MIRROR_URL"/qt/"$module".git" qt5/$module
+    module_branch="${module}_BRANCH"
+    git clone -b ${!module_branch} $MIRROR_URL"/qt/"$module".git" qt5/$module
   fi
 done
 
@@ -97,7 +98,8 @@ echo ==========================================================
 for module in $NON_QT5_MODULES
 do
   module_hash="${module}_HASH"
-  cd $module && git checkout master && git clean -dxf && git reset --hard HEAD && git fetch && git checkout ${!module_hash} && cd ..
+  module_branch="${module}_BRANCH"
+  cd $module && git checkout ${!module_branch} && git clean -dxf && git reset --hard HEAD && git fetch && git checkout ${!module_hash} && cd ..
   if [ $? -ne 0 ] ; then
     echo FAIL: updating $module
     exit 1
