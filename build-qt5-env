@@ -1,5 +1,5 @@
-QT_WEEKLY_REV=r40
-WEEKLY_QT5_HASH="8d77ff1ef2422259dd6baed5cae9815260e5bee2"
+QT_WEEKLY_REV=Qt-5.0.1
+WEEKLY_QT5_HASH="v5.0.1"
 QT5_MODULES="qtjsbackend qtdeclarative"
 
 NON_QT5_MODULES="qt3d qtlocation qtsensors"

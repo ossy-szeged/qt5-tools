@@ -61,25 +61,25 @@ if [ $DEVELOPER_BUILD ]; then
     NEW_QTDIR=$ABSDIR/qt5/qtbase
     INSTALL_TYPE=-developer-build
 else
-    NEW_QTDIR=/usr/local/Trolltech/Qt5/Qt-5.0.0-$QT_WEEKLY_REV
+    NEW_QTDIR=/usr/local/Trolltech/Qt5/$QT_WEEKLY_REV
     INSTALL_TYPE="-prefix $NEW_QTDIR"
     rm -rf $NEW_QTDIR
 fi
 
-if [ ! -d qt5 ]; then
-    git clone -b stable $MIRROR_URL"/qt/qt5.git" qt5
+if [ ! -d qtsdk ]; then
+    git clone -b master $MIRROR_URL"/qtsdk/qtsdk.git" qtsdk
 fi
 
 for module in $NON_QT5_MODULES
 do
   if [ ! -d qt5/$module ]; then
     module_branch="${module}_BRANCH"
-    git clone -b ${!module_branch} $MIRROR_URL"/qt/"$module".git" qt5/$module
+    git clone -b ${!module_branch} $MIRROR_URL"/qt/"$module".git" qtsdk/$module
   fi
 done
 
 
-cd qt5
+cd qtsdk
 git checkout stable
 git clean -dxf
 git reset --hard HEAD
@@ -109,7 +109,7 @@ done
 export QTDIR=$NEW_QTDIR
 export PATH=$QTDIR/bin:$PATH
 
-./configure -opensource -confirm-license -no-pch -nomake examples -nomake demos -nomake tests -no-gtkstyle -nomake translations -qt-zlib -qt-libpng -qt-libjpeg -qt-sql-sqlite $BUILD_TYPE $INSTALL_TYPE
+./configure -opensource -confirm-license -no-pch -nomake examples -nomake demos -nomake tests -no-gtkstyle -nomake translations -qt-zlib -qt-sql-sqlite $BUILD_TYPE $INSTALL_TYPE
 
 cd qtbase && make $THREADS && if [ ! $DEVELOPER_BUILD ]; then make install; fi && cd ..
 if [ $? -ne 0 ] ; then
