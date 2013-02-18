@@ -58,7 +58,7 @@ fi
 NEW_QTDIR=
 INSTALL_TYPE=
 if [ $DEVELOPER_BUILD ]; then
-    NEW_QTDIR=$ABSDIR/qt5/qtbase
+    NEW_QTDIR=$ABSDIR/qtsdk/qtbase
     INSTALL_TYPE=-developer-build
 else
     NEW_QTDIR=/usr/local/Trolltech/Qt5/$QT_WEEKLY_REV
@@ -72,7 +72,7 @@ fi
 
 for module in $NON_QT5_MODULES
 do
-  if [ ! -d qt5/$module ]; then
+  if [ ! -d qtsdk/$module ]; then
     module_branch="${module}_BRANCH"
     git clone -b ${!module_branch} $MIRROR_URL"/qt/"$module".git" qtsdk/$module
   fi
