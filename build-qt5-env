@@ -1,11 +1,3 @@
 QT_WEEKLY_REV=Qt-5.0.1
 WEEKLY_QT5_HASH="v5.0.1"
 QT5_MODULES="qtjsbackend qtdeclarative"
-
-NON_QT5_MODULES="qt3d qtlocation qtsensors"
-qt3d_HASH="1ce13f86c7066721ce80258d6a89baccc4030066"
-qt3d_BRANCH="master"
-qtlocation_HASH="1e8989fcb10f04daf5ec1c21d36e829dfbde62ec"
-qtlocation_BRANCH="master"
-qtsensors_HASH="a199068d2aecd8a7faaed3e098253b6e6c542e59"
-qtsensors_BRANCH="stable"

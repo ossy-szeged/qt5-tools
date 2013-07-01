@@ -70,15 +70,6 @@ if [ ! -d qtsdk ]; then
     git clone -b master $MIRROR_URL"/qtsdk/qtsdk.git" qtsdk
 fi
 
-for module in $NON_QT5_MODULES
-do
-  if [ ! -d qtsdk/$module ]; then
-    module_branch="${module}_BRANCH"
-    git clone -b ${!module_branch} $MIRROR_URL"/qt/"$module".git" qtsdk/$module
-  fi
-done
-
-
 cd qtsdk
 git checkout stable
 git clean -dxf
@@ -95,17 +86,6 @@ echo ==========================================================
 git submodule status
 echo ==========================================================
 
-for module in $NON_QT5_MODULES
-do
-  module_hash="${module}_HASH"
-  module_branch="${module}_BRANCH"
-  cd $module && git checkout ${!module_branch} && git clean -dxf && git reset --hard HEAD && git fetch && git checkout ${!module_hash} && cd ..
-  if [ $? -ne 0 ] ; then
-    echo FAIL: updating $module
-    exit 1
-  fi
-done
-
 export QTDIR=$NEW_QTDIR
 export PATH=$QTDIR/bin:$PATH
 
@@ -117,7 +97,7 @@ if [ $? -ne 0 ] ; then
   exit 1
 fi
 
-for module in $QT5_MODULES $NON_QT5_MODULES
+for module in $QT5_MODULES
 do
   cd $module && qmake && make $THREADS && if [ ! $DEVELOPER_BUILD ]; then make install; fi && cd ..
   if [ $? -ne 0 ] ; then
