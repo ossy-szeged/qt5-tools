@@ -58,7 +58,7 @@ fi
 NEW_QTDIR=
 INSTALL_TYPE=
 if [ $DEVELOPER_BUILD ]; then
-    NEW_QTDIR=$ABSDIR/qtsdk/qtbase
+    NEW_QTDIR=$ABSDIR/qt5/qtbase
     INSTALL_TYPE=-developer-build
 else
     NEW_QTDIR=/usr/local/Trolltech/Qt5/$QT_WEEKLY_REV
@@ -66,11 +66,11 @@ else
     rm -rf $NEW_QTDIR
 fi
 
-if [ ! -d qtsdk ]; then
-    git clone -b master $MIRROR_URL"/qtsdk/qtsdk.git" qtsdk
+if [ ! -d qt5 ]; then
+    git clone -b master $MIRROR_URL"/qt/qt5.git" qt5
 fi
 
-cd qtsdk
+cd qt5
 git checkout stable
 git clean -dxf
 git reset --hard HEAD
@@ -89,7 +89,7 @@ echo ==========================================================
 export QTDIR=$NEW_QTDIR
 export PATH=$QTDIR/bin:$PATH
 
-./configure -opensource -confirm-license -no-pch -nomake examples -nomake demos -nomake tests -no-gtkstyle -nomake translations -qt-zlib -qt-sql-sqlite $BUILD_TYPE $INSTALL_TYPE
+./configure -opensource -confirm-license -no-pch -nomake examples -nomake tests -no-gtkstyle -qt-zlib -qt-sql-sqlite $BUILD_TYPE $INSTALL_TYPE
 
 cd qtbase && make $THREADS && if [ ! $DEVELOPER_BUILD ]; then make install; fi && cd ..
 if [ $? -ne 0 ] ; then
