@@ -1,3 +1,3 @@
-QT_WEEKLY_REV=Qt-5.1.1
-WEEKLY_QT5_HASH="v5.1.1"
-QT5_MODULES="qtjsbackend qtdeclarative"
+QT_WEEKLY_REV=Qt-5.2.0
+WEEKLY_QT5_HASH="v5.2.0"
+QT5_MODULES="qtxmlpatterns qtdeclarative"
