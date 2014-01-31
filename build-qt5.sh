@@ -68,7 +68,7 @@ else
 fi
 
 if [ ! -d qt5 ]; then
-    git clone -b master $MIRROR_URL"/qt/qt5.git" qt5
+    git clone $MIRROR_URL"/qt/qt5.git" qt5
 fi
 
 cd qt5
